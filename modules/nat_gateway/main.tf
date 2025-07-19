@@ -10,15 +10,15 @@ resource "aws_nat_gateway" "nat" {
   }
 }
 
-resource "aws_route_table" "private" {
-  vpc_id = var.vpc_id
-
-  route {
-    cidr_block     = "0.0.0.0/0"
-    nat_gateway_id = aws_nat_gateway.nat.id
+data "aws_route_tables" "private" {
+  filter {
+    name   = "tag:Name"
+    values = [var.private_route_table_name]
   }
+}
 
-  tags = {
-    Name = "private-route-table"
-  }
+resource "aws_route" "private_to_nat" {
+  route_table_id         = data.aws_route_tables.private.ids[0]
+  destination_cidr_block = "0.0.0.0/0"
+  nat_gateway_id         = aws_nat_gateway.nat.id
 }

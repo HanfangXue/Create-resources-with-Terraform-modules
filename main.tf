@@ -43,8 +43,9 @@ module "alb" {
 
 # NAT Gateway
 module "nat_gateway" {
-  source            = "./modules/nat_gateway"
-  vpc_id            = var.vpc_id
-  public_subnet_ids = var.public_subnet_ids
-  private_subnet_id = var.private_subnet_id
+  source                   = "./modules/nat_gateway"
+  vpc_id                   = var.vpc_id
+  public_subnet_ids        = var.public_subnet_ids
+  private_subnet_id        = var.private_subnet_id
+  private_route_table_name = var.private_route_table_name
 }

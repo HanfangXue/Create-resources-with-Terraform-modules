@@ -53,3 +53,8 @@ variable "public_route_table_id" {
   description = "Existing route table ID associated with the public subnet"
   type        = string
 }
+
+variable "private_route_table_name" {
+  description = "Name tag of private route table to update with NAT route"
+  type        = string
+}
